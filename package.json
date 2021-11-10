@@ -1,0 +1,38 @@
+{
+  "name": "newt-client-js",
+  "version": "1.0.0",
+  "description": "JavaScript SDK for Newt's API",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "Newt, Inc.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Newt-Inc/newt-client-js.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint:eslint": "eslint ./src",
+    "lint:prettier": "prettier --check ./src",
+    "fix:eslint": "prettier --fix ./src",
+    "fix:prettier": "prettier --write ./src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "qs": "^6.10.1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.7.8",
+    "@types/qs": "^6.9.7",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.3.2",
+    "typescript": "^4.4.2"
+  }
+}
