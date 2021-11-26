@@ -91,7 +91,7 @@ client
         { title: { match: 'update' } },
         { title: { match: encodeURIComponent('アップデート') } }
       ],
-      body: { fmt: 'plain' },
+      body: { fmt: 'text' },
       limit: 10
     }
   })

@@ -28,7 +28,7 @@ type OperatorValue = {
   lte?: string | number;
   gt?: string | number;
   gte?: string | number;
-  fmt?: 'plain';
+  fmt?: 'text';
 };
 
 type QueryValue = string | number | boolean | OperatorValue;
@@ -64,7 +64,7 @@ type ExceptFormat = {
 
 type Format = {
   [key: string]: {
-    fmt: 'plain';
+    fmt: 'text';
   };
 };
 
