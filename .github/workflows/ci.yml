@@ -1,0 +1,18 @@
+name: ci
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.13.0'
+          cache: 'yarn'
+      - run: yarn --frozen-lockfile
+      - run: yarn lint:eslint
+      - run: yarn lint:prettier
+      - run: yarn build
+      - run: yarn test
