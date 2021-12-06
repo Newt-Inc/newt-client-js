@@ -1,16 +1,28 @@
 import qs from 'qs';
 import { OrQuery, Query } from '../types';
 
-const parseOrQuery = (orQuery: OrQuery['or']) => {
+const parseOrQuery = (orQuery: Query['or']) => {
+  if (!orQuery) throw new Error('invalid query');
   const orConditions: string[] = [];
-  orQuery.forEach((query) => {
-    if (query.or) {
-      orConditions.push(parseOrQuery(query.or as OrQuery['or']));
-    } else {
+
+  orQuery.forEach((query: OrQuery) => {
+    if (!query.or) {
       orConditions.push(
         qs.stringify(query, { encode: false, arrayFormat: 'comma' })
       );
+      return;
     }
+
+    let queryString = parseOrQuery(query.or as Query['or']);
+    delete query.or;
+
+    if (Object.keys(query).length > 0) {
+      queryString =
+        qs.stringify(query, { encode: false, arrayFormat: 'comma' }) +
+        '&' +
+        queryString;
+    }
+    orConditions.push(queryString);
   });
   const q = '[or]=(' + orConditions.join(';') + ')';
   return q;
