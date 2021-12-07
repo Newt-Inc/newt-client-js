@@ -89,19 +89,19 @@ export interface Content {
 }
 
 export type AppIcon = {
-  type: string
-  value: string
-}
+  type: string;
+  value: string;
+};
 
 export type AppCover = {
-  type: string
-  value: string
-}
+  type: string;
+  value: string;
+};
 export interface AppMeta {
-  name: string
-  uid: string
-  icon?: AppIcon
-  cover?: AppCover
+  name: string;
+  uid: string;
+  icon?: AppIcon;
+  cover?: AppCover;
 }
 
 export interface GetAppParams {
