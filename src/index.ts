@@ -7,4 +7,8 @@ export {
   GetContentQuery,
   Contents,
   Content,
+  AppMeta,
+  AppCover,
+  AppIcon,
+  GetAppParams,
 } from './types';

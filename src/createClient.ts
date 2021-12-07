@@ -5,6 +5,8 @@ import {
   GetContentsParams,
   GetContentParams,
   Contents,
+  GetAppParams,
+  AppMeta,
 } from './types';
 
 export const createClient = ({
@@ -58,8 +60,18 @@ export const createClient = ({
     return data;
   };
 
+  const getApp = async ({
+    appUid
+  }: GetAppParams): Promise<AppMeta | null> => {
+    if (!appUid) throw new Error('appUid parameter is required.');
+    const url = `/${appUid}`;
+    const { data } = await axiosInstance.get<AppMeta>(url);
+    return data;
+  }
+
   return {
     getContents,
     getContent,
+    getApp,
   };
 };
