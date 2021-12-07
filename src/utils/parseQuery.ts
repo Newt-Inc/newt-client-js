@@ -1,41 +1,42 @@
 import qs from 'qs';
-import { OrQuery, Query } from '../types';
+import { FilterQuery, Query } from '../types';
 
-const parseOrQuery = (orQuery: Query['or']) => {
+const parseAndQuery = (andQuery: FilterQuery[]) => {
+  if (!andQuery) throw new Error('invalid query');
+  const andConditions: string[] = [];
+
+  andQuery.forEach((query: FilterQuery) => {
+    andConditions.push(parseQuery(query));
+  });
+  const q = andConditions.join('&');
+  return q;
+};
+
+const parseOrQuery = (orQuery: FilterQuery[]) => {
   if (!orQuery) throw new Error('invalid query');
   const orConditions: string[] = [];
 
-  orQuery.forEach((query: OrQuery) => {
-    if (!query.or) {
-      orConditions.push(
-        qs.stringify(query, { encode: false, arrayFormat: 'comma' })
-      );
-      return;
-    }
-
-    let queryString = parseOrQuery(query.or as Query['or']);
-    delete query.or;
-
-    if (Object.keys(query).length > 0) {
-      queryString =
-        qs.stringify(query, { encode: false, arrayFormat: 'comma' }) +
-        '&' +
-        queryString;
-    }
-    orConditions.push(queryString);
+  orQuery.forEach((query: FilterQuery) => {
+    orConditions.push(parseQuery(query));
   });
   const q = '[or]=(' + orConditions.join(';') + ')';
   return q;
 };
 
 export const parseQuery = (query: Query) => {
-  if (!query.or)
-    return qs.stringify(query, { encode: false, arrayFormat: 'comma' });
+  let andQuery = '';
+  if (query.and) {
+    andQuery = parseAndQuery(query.and);
+    delete query.and;
+  }
 
-  const orQuery = parseOrQuery(query.or);
-  delete query.or;
+  let orQuery = '';
+  if (query.or) {
+    orQuery = parseOrQuery(query.or);
+    delete query.or;
+  }
 
   let q = qs.stringify(query, { encode: false, arrayFormat: 'comma' });
-  q = q ? q + '&' + orQuery : orQuery;
+  q = [q, orQuery, andQuery].filter((queryString) => queryString).join('&');
   return q;
 };

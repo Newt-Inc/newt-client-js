@@ -33,9 +33,10 @@ type OperatorValue = {
 
 type QueryValue = string | number | boolean | OperatorValue;
 
-export type OrQuery = {
-  or?: Array<OrQuery>;
-  [key: string]: QueryValue | Array<OrQuery> | undefined;
+export type FilterQuery = {
+  or?: Array<FilterQuery>;
+  and?: Array<FilterQuery>;
+  [key: string]: QueryValue | Array<FilterQuery> | undefined;
 };
 
 export type Query = {
@@ -44,8 +45,9 @@ export type Query = {
   limit?: number;
   skip?: number;
   depth?: number;
-  or?: Array<OrQuery>;
-  [key: string]: QueryValue | string[] | Array<OrQuery> | undefined;
+  or?: Array<FilterQuery>;
+  and?: Array<FilterQuery>;
+  [key: string]: QueryValue | string[] | Array<FilterQuery> | undefined;
 };
 
 export type GetContentsQuery = Query;
