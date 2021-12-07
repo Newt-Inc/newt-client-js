@@ -25,7 +25,7 @@ const { createClient } = require('newt-client-js');
 const client = createClient({
   projectUid: 'YOUR_PROJECT_UID',
   token: 'YOUR_CDN_API_TOKEN',
-  apiType: 'cdn' // You can specify "cdn" or "content".
+  apiType: 'cdn' // You can specify "cdn" or "api".
 });
 
 client
@@ -36,19 +36,6 @@ client
   })
   .then((content) => console.log(content))
   .catch((err) => console.log(err));
-```
-
-### Using this library with the Content API
-
-This library can also be used with the Content API. In order to do so, you need to use the Content API token, available on the same page where you get the CDN API token, such as:
-
-```js
-const { createClient } = require('newt-client-js');
-const client = createClient({
-  projectUid: 'YOUR_PROJECT_UID',
-  token: 'YOUR_CONTENT_API_TOKEN',
-  apiType: 'content'
-});
 ```
 
 ## Documentation & References
@@ -64,8 +51,8 @@ The `createClient` method supports several options you may set to achieve the ex
 | Name | Default | Description |
 | :--- | :--- | :--- |
 | `projectUid` | | **Required.** Your project uid. |
-| `token` | | **Required.** Your CDN API token or Content API token. |
-| `apiType` | `cdn` | You can specify "cdn" or "content". |
+| `token` | | **Required.** Your Newt CDN API token or Newt API token. |
+| `apiType` | `cdn` | You can specify "cdn" or "api". Please specify "cdn" to send a request to the Newt CDN API, or "api" to send a request to the Newt API. |
 
 ### Get contents
 
@@ -124,14 +111,17 @@ client
 
 ### Usage with TypeScript
 
-The type of the content you want to get can be passed as a parameter.
+#### Type definition
+
+By using the type Content, you can easily define the type.
 
 ```ts
 // Suppose you have defined a model named Post in the admin page.
 
 // Type definition
 /**
- * // Content type
+ * Content type
+ *
  * {
  *   _id: string;
  *   _sys: {
@@ -153,10 +143,17 @@ interface Post extends Content {
   title: string
   body: string
 }
+```
 
+#### Request and Response
+
+The type of the content you want to get can be passed as a parameter.
+
+```ts
 // Request
 /**
- * // getContents response type
+ * getContents response type
+ *
  * {
  *   skip: number;
  *   limit: number;
@@ -172,7 +169,8 @@ client.getContents<Post>({
   .catch((err) => console.log(err));
 
 /**
- * // getContent response type
+ * getContent response type
+ *
  * {
  *   _id: string;
  *   _sys: {
@@ -200,6 +198,37 @@ client
   .then((post) => console.log(post))
   .catch((err) => console.log(err));
 ```
+
+#### Query Fields
+
+All fields are optional.
+
+| operator | Type | Description |
+| :--- | :--- | :--- |
+| `YOUR_FIELD` | - | You can define a query for a field that you define |
+| `select` | string[] | |
+| `order` | string[] | |
+| `limit` | number | |
+| `skip` | number| |
+| `depth` | number | |
+| `or` | Array | Connects each element in the array as an "or" condition. |
+| `and` | Array | Connects each element in the array as an "and" condition. |
+
+#### Query Operators
+
+| Field | Type |
+| :--- | :--- |
+| `ne` | string / number / boolean |
+| `match` | string |
+| `in` | string[] / number[] |
+| `nin` | string[] / number[] |
+| `all` | string[] / number[] |
+| `exists` | boolean |
+| `lt` | string / number |
+| `lte` | string / number |
+| `gt` | string / number |
+| `gte` | string / number |
+| `fmt` | 'text' |
 
 ## License
 

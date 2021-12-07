@@ -14,9 +14,9 @@ export const createClient = ({
 }: CreateClientParams) => {
   if (!projectUid) throw new Error('projectUid parameter is required.');
   if (!token) throw new Error('token parameter is required.');
-  if (!['cdn', 'content'].includes(apiType))
+  if (!['cdn', 'api'].includes(apiType))
     throw new Error(
-      `apiType parameter should be set to "cdn" or "content". apiType: ${apiType}`
+      `apiType parameter should be set to "cdn" or "api". apiType: ${apiType}`
     );
 
   const axiosInstance = axios.create({
