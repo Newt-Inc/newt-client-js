@@ -203,7 +203,7 @@ client
 
 All fields are optional.
 
-| operator | Type | Description |
+| Field | Type | Description |
 | :--- | :--- | :--- |
 | `YOUR_FIELD` | - | You can define a query for a field that you define |
 | `select` | string[] | |
@@ -216,7 +216,7 @@ All fields are optional.
 
 #### Query Operators
 
-| Field | Type |
+| Operator | Type |
 | :--- | :--- |
 | `ne` | string / number / boolean |
 | `match` | string |
