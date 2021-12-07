@@ -109,6 +109,17 @@ client
   .catch((err) => console.log(err));
 ```
 
+### Get an app
+
+```js
+client
+  .getApp({
+    appUid: 'YOUR_APP_UID'
+  })
+  .then((app) => console.log(app))
+  .catch((err) => console.log(err));
+```
+
 ### Usage with TypeScript
 
 #### Type definition

@@ -97,6 +97,7 @@ export type AppCover = {
   type: string;
   value: string;
 };
+
 export interface AppMeta {
   name: string;
   uid: string;
