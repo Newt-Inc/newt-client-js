@@ -62,7 +62,7 @@ export const createClient = ({
 
   const getApp = async ({ appUid }: GetAppParams): Promise<AppMeta | null> => {
     if (!appUid) throw new Error('appUid parameter is required.');
-    const url = `/${appUid}`;
+    const url = `/project/apps/${appUid}`;
     const { data } = await axiosInstance.get<AppMeta>(url);
     return data;
   };
