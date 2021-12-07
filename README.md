@@ -52,7 +52,7 @@ The `createClient` method supports several options you may set to achieve the ex
 | :--- | :--- | :--- |
 | `projectUid` | | **Required.** Your project uid. |
 | `token` | | **Required.** Your Newt CDN API token or Newt API token. |
-| `apiType` | `cdn` | You can specify "cdn" or "api". Please specify "cdn" to send a request to the Newt CDN API, or "api" to send a request to the Newt API. |
+| `apiType` | `cdn` | You can specify **"cdn"** or **"api"**. Please specify "cdn" to send a request to the Newt CDN API, or "api" to send a request to the Newt API. |
 
 ### Get contents
 
@@ -150,7 +150,6 @@ interface Post extends Content {
 The type of the content you want to get can be passed as a parameter.
 
 ```ts
-// Request
 /**
  * getContents response type
  *
