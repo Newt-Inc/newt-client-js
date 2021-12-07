@@ -1,7 +1,7 @@
 export interface CreateClientParams {
   projectUid: string;
   token: string;
-  apiType?: 'cdn' | 'content';
+  apiType?: 'cdn' | 'api';
 }
 
 export interface GetContentsParams {
