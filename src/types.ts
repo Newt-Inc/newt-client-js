@@ -2,6 +2,8 @@ export interface CreateClientParams {
   projectUid: string;
   token: string;
   apiType?: 'cdn' | 'api';
+  retryOnError?: boolean;
+  retryLimit?: number;
 }
 
 export interface GetContentsParams {

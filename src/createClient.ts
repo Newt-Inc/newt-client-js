@@ -1,4 +1,5 @@
 import axios from 'axios';
+import axiosRetry from 'axios-retry';
 import { parseQuery } from './utils/parseQuery';
 import {
   CreateClientParams,
@@ -13,6 +14,8 @@ export const createClient = ({
   projectUid,
   token,
   apiType = 'cdn',
+  retryOnError = true,
+  retryLimit = 3,
 }: CreateClientParams) => {
   if (!projectUid) throw new Error('projectUid parameter is required.');
   if (!token) throw new Error('token parameter is required.');
@@ -20,11 +23,24 @@ export const createClient = ({
     throw new Error(
       `apiType parameter should be set to "cdn" or "api". apiType: ${apiType}`
     );
+  if (retryLimit > 10)
+    throw new Error('retryLimit should be a value less than or equal to 10.');
 
   const axiosInstance = axios.create({
     baseURL: `https://${projectUid}.${apiType}.newt.so/v1`,
     headers: { Authorization: `Bearer ${token}` },
   });
+  if (retryOnError) {
+    axiosRetry(axiosInstance, {
+      retries: retryLimit,
+      retryCondition: (error) => {
+        return error.response?.status === 429 || error.response?.status === 500;
+      },
+      retryDelay: (retryCount) => {
+        return retryCount * 1000;
+      },
+    });
+  }
 
   const getContents = async <T>({
     appUid,
