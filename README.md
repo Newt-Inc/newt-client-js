@@ -1,6 +1,16 @@
 # JavaScript SDK for Newt's API
 
-JavaScript client for Newt. Works in Node.js and modern browsers (older browsers needs a Promise polyfill).
+JavaScript client for Newt. Works in Node.js and modern browsers.
+
+## Supported browsers and Node.js versions
+
+- Chrome
+- Firefox
+- Edge
+- Safari
+- Node.js (LTS)
+
+Other browsers should also work, but Newt Client requires ES6 Promise.
 
 ## Getting Started
 
@@ -14,6 +24,12 @@ npm install newt-client-js
 # or
 
 yarn add newt-client-js
+```
+
+Using it directly in the browser:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/newt-client-js@latest/dist/umd/newtClient.js"></script>
 ```
 
 ### Your first request
