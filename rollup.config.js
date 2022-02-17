@@ -56,7 +56,7 @@ export default [
                 firefox: '90',
                 chrome: '90',
                 safari: '13',
-                node: '16',
+                node: '14',
               },
             },
           ],
