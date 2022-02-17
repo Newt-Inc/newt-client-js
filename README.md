@@ -4,10 +4,10 @@ JavaScript client for Newt. Works in Node.js and modern browsers.
 
 ## Supported browsers and Node.js versions
 
-- Chrome（>= 90）
-- Firefox（>= 90）
-- Edge（>= 90）
-- Safari（>= 13）
+- Chrome (>= 90)
+- Firefox (>= 90)
+- Edge (>= 90)
+- Safari (>= 13)
 - Node.js (>= 14)
 
 Other browsers should also work, but Newt Client requires ES6 Promise.
