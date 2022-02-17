@@ -19,7 +19,7 @@
     "url": "https://github.com/Newt-Inc/newt-client-js.git"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=14"
   },
   "scripts": {
     "dev": "rollup -c -w",
