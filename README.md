@@ -39,7 +39,7 @@ The following code snippet is the most basic one you can use to get some content
 ```js
 const { createClient } = require('newt-client-js');
 const client = createClient({
-  projectUid: 'YOUR_PROJECT_UID',
+  spaceUid: 'YOUR_SPACE_UID',
   token: 'YOUR_CDN_API_TOKEN',
   apiType: 'cdn' // You can specify "cdn" or "api".
 });
@@ -66,7 +66,7 @@ The `createClient` method supports several options you may set to achieve the ex
 
 | Name | Default | Description |
 | :--- | :--- | :--- |
-| `projectUid` | | **Required.** Your project uid. |
+| `spaceUid` | | **Required.** Your space uid. |
 | `token` | | **Required.** Your Newt CDN API token or Newt API token. |
 | `apiType` | `cdn` | You can specify `cdn` or `api`. Please specify `cdn` to send a request to the Newt CDN API, or `api` to send a request to the Newt API. |
 | `retryOnError` | `true` | By default, this client will retry if the response status is 429 too many requests or 500 server error. To turn off this behavior, set this to `false`. |

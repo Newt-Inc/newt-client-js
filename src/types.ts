@@ -1,5 +1,5 @@
 export interface CreateClientParams {
-  projectUid: string;
+  spaceUid: string;
   token: string;
   apiType?: 'cdn' | 'api';
   retryOnError?: boolean;
