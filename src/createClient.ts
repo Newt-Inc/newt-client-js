@@ -11,13 +11,13 @@ import {
 } from './types';
 
 export const createClient = ({
-  projectUid,
+  spaceUid,
   token,
   apiType = 'cdn',
   retryOnError = true,
   retryLimit = 3,
 }: CreateClientParams) => {
-  if (!projectUid) throw new Error('projectUid parameter is required.');
+  if (!spaceUid) throw new Error('spaceUid parameter is required.');
   if (!token) throw new Error('token parameter is required.');
   if (!['cdn', 'api'].includes(apiType))
     throw new Error(
@@ -27,7 +27,7 @@ export const createClient = ({
     throw new Error('retryLimit should be a value less than or equal to 10.');
 
   const axiosInstance = axios.create({
-    baseURL: `https://${projectUid}.${apiType}.newt.so/v1`,
+    baseURL: `https://${spaceUid}.${apiType}.newt.so/v1`,
     headers: { Authorization: `Bearer ${token}` },
   });
   if (retryOnError) {
@@ -78,7 +78,7 @@ export const createClient = ({
 
   const getApp = async ({ appUid }: GetAppParams): Promise<AppMeta | null> => {
     if (!appUid) throw new Error('appUid parameter is required.');
-    const url = `/project/apps/${appUid}`;
+    const url = `/space/apps/${appUid}`;
     const { data } = await axiosInstance.get<AppMeta>(url);
     return data;
   };
