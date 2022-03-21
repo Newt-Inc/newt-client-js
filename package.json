@@ -27,7 +27,7 @@
     "clean": "rimraf dist",
     "lint:eslint": "eslint ./src",
     "lint:prettier": "prettier --check ./src",
-    "fix:eslint": "prettier --fix ./src",
+    "fix:eslint": "eslint --fix ./src",
     "fix:prettier": "prettier --write ./src",
     "test": "jest"
   },
