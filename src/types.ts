@@ -77,8 +77,6 @@ export interface Contents<T> {
 export interface Content {
   _id: string;
   _sys: {
-    model: string;
-    owner: string;
     createdAt: string;
     updatedAt: string;
     raw: {
