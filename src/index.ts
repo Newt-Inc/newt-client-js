@@ -1,4 +1,4 @@
-export { createClient } from './createClient';
+export { createClient } from './createClient'
 export {
   CreateClientParams,
   GetContentsParams,
@@ -11,4 +11,4 @@ export {
   AppCover,
   AppIcon,
   GetAppParams,
-} from './types';
+} from './types'
