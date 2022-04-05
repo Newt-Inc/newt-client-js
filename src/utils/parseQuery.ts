@@ -1,42 +1,55 @@
-import qs from 'qs';
+import { stringify } from 'qs';
 import { FilterQuery, Query } from '../types';
 
 const parseAndQuery = (andQuery: FilterQuery[]) => {
   if (!andQuery) throw new Error('invalid query');
-  const andConditions: string[] = [];
+  const rawAndConditions: string[] = [];
+  const encodedAndConditions: string[] = [];
 
   andQuery.forEach((query: FilterQuery) => {
-    andConditions.push(parseQuery(query));
+    const { raw, encoded } = parseQuery(query);
+    rawAndConditions.push(raw);
+    encodedAndConditions.push(encoded);
   });
-  const q = andConditions.join('&');
-  return q;
+  const rawQ = rawAndConditions.join('&');
+  const encodedQ = encodedAndConditions.join('&');
+  return { raw: rawQ, encoded: encodedQ };
 };
 
 const parseOrQuery = (orQuery: FilterQuery[]) => {
   if (!orQuery) throw new Error('invalid query');
-  const orConditions: string[] = [];
+  const rawOrConditions: string[] = [];
 
   orQuery.forEach((query: FilterQuery) => {
-    orConditions.push(parseQuery(query));
+    const { raw } = parseQuery(query);
+    rawOrConditions.push(raw);
   });
-  const q = '[or]=(' + orConditions.join(';') + ')';
-  return q;
+  const params = new URLSearchParams();
+  params.set('[or]', `(${rawOrConditions.join(';')})`);
+  const rawQ = `[or]=(${rawOrConditions.join(';')})`;
+  return { raw: rawQ, encoded: params.toString() };
 };
 
 export const parseQuery = (query: Query) => {
-  let andQuery = '';
+  let andQuery = { raw: '', encoded: '' };
   if (query.and) {
     andQuery = parseAndQuery(query.and);
     delete query.and;
   }
 
-  let orQuery = '';
+  let orQuery = { raw: '', encoded: '' };
   if (query.or) {
     orQuery = parseOrQuery(query.or);
     delete query.or;
   }
 
-  let q = qs.stringify(query, { encode: false, arrayFormat: 'comma' });
-  q = [q, orQuery, andQuery].filter((queryString) => queryString).join('&');
-  return q;
+  const rawQuery = stringify(query, { encode: false, arrayFormat: 'comma' });
+  const encodedQuery = stringify(query, { arrayFormat: 'comma' });
+  const raw = [rawQuery, orQuery.raw, andQuery.raw]
+    .filter((queryString) => queryString)
+    .join('&');
+  const encoded = [encodedQuery, orQuery.encoded, andQuery.encoded]
+    .filter((queryString) => queryString)
+    .join('&');
+  return { raw, encoded };
 };

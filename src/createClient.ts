@@ -26,8 +26,10 @@ export const createClient = ({
   if (retryLimit > 10)
     throw new Error('retryLimit should be a value less than or equal to 10.');
 
+  const baseUrl = new URL(`https://${spaceUid}.${apiType}.newt.so`);
+
   const axiosInstance = axios.create({
-    baseURL: `https://${spaceUid}.${apiType}.newt.so/v1`,
+    baseURL: baseUrl.toString(),
     headers: { Authorization: `Bearer ${token}` },
   });
   if (retryOnError) {
@@ -50,11 +52,12 @@ export const createClient = ({
     if (!appUid) throw new Error('app parameter is required.');
     if (!modelUid) throw new Error('model parameter is required.');
 
-    let url = `/${appUid}/${modelUid}`;
+    const url = new URL(`/v1/${appUid}/${modelUid}`, baseUrl.toString());
     if (query && Object.keys(query).length) {
-      url = url + '?' + parseQuery(query);
+      const { encoded } = parseQuery(query);
+      url.search = encoded;
     }
-    const { data } = await axiosInstance.get(url);
+    const { data } = await axiosInstance.get(url.pathname + url.search);
     return data;
   };
 
@@ -68,18 +71,22 @@ export const createClient = ({
     if (!modelUid) throw new Error('modelUid parameter is required.');
     if (!contentId) throw new Error('contentId parameter is required.');
 
-    let url = `/${appUid}/${modelUid}/${contentId}`;
+    const url = new URL(
+      `/v1/${appUid}/${modelUid}/${contentId}`,
+      baseUrl.toString()
+    );
     if (query && Object.keys(query).length) {
-      url = url + '?' + parseQuery(query);
+      const { encoded } = parseQuery(query);
+      url.search = encoded;
     }
-    const { data } = await axiosInstance.get(url);
+    const { data } = await axiosInstance.get(url.pathname + url.search);
     return data;
   };
 
   const getApp = async ({ appUid }: GetAppParams): Promise<AppMeta | null> => {
     if (!appUid) throw new Error('appUid parameter is required.');
-    const url = `/space/apps/${appUid}`;
-    const { data } = await axiosInstance.get<AppMeta>(url);
+    const url = new URL(`/v1/space/apps/${appUid}`, baseUrl.toString());
+    const { data } = await axiosInstance.get<AppMeta>(url.pathname);
     return data;
   };
 

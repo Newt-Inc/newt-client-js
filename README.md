@@ -94,7 +94,7 @@ client
     query: {
       or: [
         { title: { match: 'update' } },
-        { title: { match: encodeURIComponent('アップデート') } }
+        { title: { match: 'アップデート' } }
       ],
       body: { fmt: 'text' },
       limit: 10
