@@ -154,8 +154,6 @@ By using the type Content, you can easily define the type.
  * {
  *   _id: string;
  *   _sys: {
- *     model: string;
- *     owner: string;
  *     createdAt: string;
  *     updatedAt: string;
  *     raw: {
@@ -202,8 +200,6 @@ client.getContents<Post>({
  * {
  *   _id: string;
  *   _sys: {
- *     model: string;
- *     owner: string;
  *     createdAt: string;
  *     updatedAt: string;
  *     raw: {
