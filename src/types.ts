@@ -1,110 +1,110 @@
 export interface CreateClientParams {
-  spaceUid: string;
-  token: string;
-  apiType?: 'cdn' | 'api';
-  retryOnError?: boolean;
-  retryLimit?: number;
+  spaceUid: string
+  token: string
+  apiType?: 'cdn' | 'api'
+  retryOnError?: boolean
+  retryLimit?: number
 }
 
 export interface GetContentsParams {
-  appUid: string;
-  modelUid: string;
-  query?: GetContentsQuery;
+  appUid: string
+  modelUid: string
+  query?: GetContentsQuery
 }
 
 export interface GetContentParams {
-  appUid: string;
-  modelUid: string;
-  contentId: string;
-  query?: GetContentQuery;
+  appUid: string
+  modelUid: string
+  contentId: string
+  query?: GetContentQuery
 }
 
 type OperatorValue = {
-  ne?: string | number | boolean;
-  match?: string;
-  in?: string[] | number[];
-  nin?: string[] | number[];
-  all?: string[] | number[];
-  exists?: boolean;
-  lt?: string | number;
-  lte?: string | number;
-  gt?: string | number;
-  gte?: string | number;
-  fmt?: 'text';
-};
+  ne?: string | number | boolean
+  match?: string
+  in?: string[] | number[]
+  nin?: string[] | number[]
+  all?: string[] | number[]
+  exists?: boolean
+  lt?: string | number
+  lte?: string | number
+  gt?: string | number
+  gte?: string | number
+  fmt?: 'text'
+}
 
-type QueryValue = string | number | boolean | OperatorValue;
+type QueryValue = string | number | boolean | OperatorValue
 
 export type FilterQuery = {
-  or?: Array<FilterQuery>;
-  and?: Array<FilterQuery>;
-  [key: string]: QueryValue | Array<FilterQuery> | undefined;
-};
+  or?: Array<FilterQuery>
+  and?: Array<FilterQuery>
+  [key: string]: QueryValue | Array<FilterQuery> | undefined
+}
 
 export type Query = {
-  select?: string[];
-  order?: string[];
-  limit?: number;
-  skip?: number;
-  depth?: number;
-  or?: Array<FilterQuery>;
-  and?: Array<FilterQuery>;
-  [key: string]: QueryValue | string[] | Array<FilterQuery> | undefined;
-};
+  select?: string[]
+  order?: string[]
+  limit?: number
+  skip?: number
+  depth?: number
+  or?: Array<FilterQuery>
+  and?: Array<FilterQuery>
+  [key: string]: QueryValue | string[] | Array<FilterQuery> | undefined
+}
 
-export type GetContentsQuery = Query;
+export type GetContentsQuery = Query
 
 type ExceptFormat = {
-  select?: string[];
-  depth?: number;
-};
+  select?: string[]
+  depth?: number
+}
 
 type Format = {
   [key: string]: {
-    fmt: 'text';
-  };
-};
+    fmt: 'text'
+  }
+}
 
-export type GetContentQuery = ExceptFormat | Format;
+export type GetContentQuery = ExceptFormat | Format
 
 export interface Contents<T> {
-  skip: number;
-  limit: number;
-  total: number;
-  items: Array<T>;
+  skip: number
+  limit: number
+  total: number
+  items: Array<T>
 }
 
 export interface Content {
-  _id: string;
+  _id: string
   _sys: {
-    createdAt: string;
-    updatedAt: string;
+    createdAt: string
+    updatedAt: string
     raw: {
-      createdAt: string;
-      updatedAt: string;
-      firstPublishedAt: string;
-      publishedAt: string;
-    };
-  };
+      createdAt: string
+      updatedAt: string
+      firstPublishedAt: string
+      publishedAt: string
+    }
+  }
 }
 
 export type AppIcon = {
-  type: string;
-  value: string;
-};
+  type: string
+  value: string
+}
 
 export type AppCover = {
-  type: string;
-  value: string;
-};
+  type: string
+  value: string
+}
 
 export interface AppMeta {
-  name: string;
-  uid: string;
-  icon?: AppIcon;
-  cover?: AppCover;
+  name: string
+  uid: string
+  icon?: AppIcon
+  cover?: AppCover
 }
 
 export interface GetAppParams {
-  appUid: string;
+  appUid: string
 }
