@@ -94,9 +94,7 @@ export const createClient = ({
     }
   }
 
-  const getApp = async ({
-    appUid,
-  }: GetAppParams): Promise<AppMeta | null | undefined> => {
+  const getApp = async ({ appUid }: GetAppParams): Promise<AppMeta> => {
     if (!appUid) throw new Error('appUid parameter is required.')
     const url = new URL(`/v1/space/apps/${appUid}`, baseUrl.toString())
     try {
