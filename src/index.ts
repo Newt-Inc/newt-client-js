@@ -1,6 +1,7 @@
 export { createClient } from './createClient'
 export {
   CreateClientParams,
+  Client,
   GetContentsParams,
   GetContentParams,
   GetContentsQuery,

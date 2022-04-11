@@ -6,6 +6,12 @@ export interface CreateClientParams {
   retryLimit?: number
 }
 
+export interface Client {
+  getContents: <T>(params: GetContentsParams) => Promise<Contents<T>>
+  getContent: <T>(params: GetContentParams) => Promise<T>
+  getApp: (params: GetAppParams) => Promise<AppMeta>
+}
+
 export interface GetContentsParams {
   appUid: string
   modelUid: string
