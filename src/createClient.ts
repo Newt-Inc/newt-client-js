@@ -9,6 +9,7 @@ import {
   GetAppParams,
   AppMeta,
 } from './types'
+import { errorHandler } from './errorHandler'
 
 export const createClient = ({
   spaceUid,
@@ -57,8 +58,13 @@ export const createClient = ({
       const { encoded } = parseQuery(query)
       url.search = encoded
     }
-    const { data } = await axiosInstance.get(url.pathname + url.search)
-    return data
+
+    try {
+      const { data } = await axiosInstance.get(url.pathname + url.search)
+      return data
+    } catch (err) {
+      return errorHandler(err)
+    }
   }
 
   const getContent = async <T>({
@@ -79,15 +85,26 @@ export const createClient = ({
       const { encoded } = parseQuery(query)
       url.search = encoded
     }
-    const { data } = await axiosInstance.get(url.pathname + url.search)
-    return data
+
+    try {
+      const { data } = await axiosInstance.get(url.pathname + url.search)
+      return data
+    } catch (err) {
+      return errorHandler(err)
+    }
   }
 
-  const getApp = async ({ appUid }: GetAppParams): Promise<AppMeta | null> => {
+  const getApp = async ({
+    appUid,
+  }: GetAppParams): Promise<AppMeta | null | undefined> => {
     if (!appUid) throw new Error('appUid parameter is required.')
     const url = new URL(`/v1/space/apps/${appUid}`, baseUrl.toString())
-    const { data } = await axiosInstance.get<AppMeta>(url.pathname)
-    return data
+    try {
+      const { data } = await axiosInstance.get<AppMeta>(url.pathname)
+      return data
+    } catch (err) {
+      return errorHandler(err)
+    }
   }
 
   return {
