@@ -39,7 +39,7 @@ export const errorHandler = (errorResponse: unknown): never => {
   }
 
   const error = new Error()
-  error.name = `${data.status}: ${data.code}`
+  error.name = `${data.status} ${data.code}`
   try {
     error.message = JSON.stringify(errorData, null, 2)
   } catch {
