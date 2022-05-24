@@ -9,6 +9,7 @@ export interface CreateClientParams {
 export interface Client {
   getContents: <T>(params: GetContentsParams) => Promise<Contents<T>>
   getContent: <T>(params: GetContentParams) => Promise<T>
+  getFirstContent: <T>(params: GetFirstContentParams) => Promise<T>
   getApp: (params: GetAppParams) => Promise<AppMeta>
 }
 
@@ -23,6 +24,12 @@ export interface GetContentParams {
   modelUid: string
   contentId: string
   query?: GetContentQuery
+}
+
+export interface GetFirstContentParams {
+  appUid: string
+  modelUid: string
+  query?: GetFirstContentQuery
 }
 
 type OperatorValue = {
@@ -72,6 +79,8 @@ type Format = {
 }
 
 export type GetContentQuery = ExceptFormat | Format
+
+export type GetFirstContentQuery = Omit<Query, 'limit'>
 
 export interface Contents<T> {
   skip: number
