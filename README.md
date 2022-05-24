@@ -127,6 +127,24 @@ client
   .catch((err) => console.log(err));
 ```
 
+### Get first content
+
+The getFirstContent method will return the first content that matches the condition specified in query.
+You can set the parameters available for getContents except for limit.
+
+```js
+client
+  .getFirstContent({
+    appUid: 'YOUR_APP_UID',
+    modelUid: 'YOUR_MODEL_UID',
+    query: {
+      slug: 'hello-world'
+    }
+  })
+  .then((content) => console.log(content))
+  .catch((err) => console.log(err));
+```
+
 ### Get an app
 
 ```js
@@ -218,6 +236,33 @@ client
     appUid: 'YOUR_APP_UID',
     modelUid: 'YOUR_MODEL_UID',
     contentId: 'YOUR_CONTENT_ID'
+  })
+  .then((post) => console.log(post))
+  .catch((err) => console.log(err));
+
+/**
+ * getFirstContent response type
+ *
+ * {
+ *   _id: string;
+ *   _sys: {
+ *     createdAt: string;
+ *     updatedAt: string;
+ *     raw: {
+ *       createdAt: string;
+ *       updatedAt: string;
+ *       firstPublishedAt: string;
+ *       publishedAt: string;
+ *     };
+ *   };
+ *   title: string; // field defined by you
+ *   body: string; // field defined by you
+ * }
+ */
+client
+  .getFirstContent<Post>({
+    appUid: 'YOUR_APP_UID',
+    modelUid: 'YOUR_MODEL_UID',
   })
   .then((post) => console.log(post))
   .catch((err) => console.log(err));

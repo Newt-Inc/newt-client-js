@@ -5,6 +5,7 @@ import {
   CreateClientParams,
   GetContentsParams,
   GetContentParams,
+  GetFirstContentParams,
   Contents,
   GetAppParams,
   AppMeta,
@@ -94,6 +95,21 @@ export const createClient = ({
     }
   }
 
+  const getFirstContent = async <T>({
+    appUid,
+    modelUid,
+    query,
+  }: GetFirstContentParams): Promise<T | null> => {
+    if (query && query.limit) {
+      throw new Error('query.limit parameter cannot have a value.')
+    }
+    const q = { ...query, limit: 1 }
+
+    const { items } = await getContents<T>({ appUid, modelUid, query: q })
+    if (items.length === 0) return null
+    return items[0]
+  }
+
   const getApp = async ({ appUid }: GetAppParams): Promise<AppMeta> => {
     if (!appUid) throw new Error('appUid parameter is required.')
     const url = new URL(`/v1/space/apps/${appUid}`, baseUrl.toString())
@@ -108,6 +124,7 @@ export const createClient = ({
   return {
     getContents,
     getContent,
+    getFirstContent,
     getApp,
   }
 }
