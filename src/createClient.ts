@@ -51,8 +51,8 @@ export const createClient = ({
     modelUid,
     query,
   }: GetContentsParams): Promise<Contents<T>> => {
-    if (!appUid) throw new Error('app parameter is required.')
-    if (!modelUid) throw new Error('model parameter is required.')
+    if (!appUid) throw new Error('appUid parameter is required.')
+    if (!modelUid) throw new Error('modelUid parameter is required.')
 
     const url = new URL(`/v1/${appUid}/${modelUid}`, baseUrl.toString())
     if (query && Object.keys(query).length) {
