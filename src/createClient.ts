@@ -16,6 +16,7 @@ export const createClient = ({
   spaceUid,
   token,
   apiType = 'cdn',
+  adapter = undefined,
   retryOnError = true,
   retryLimit = 3,
 }: CreateClientParams) => {
@@ -33,6 +34,7 @@ export const createClient = ({
   const axiosInstance = axios.create({
     baseURL: baseUrl.toString(),
     headers: { Authorization: `Bearer ${token}` },
+    adapter,
   })
   if (retryOnError) {
     axiosRetry(axiosInstance, {

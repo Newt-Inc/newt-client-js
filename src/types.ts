@@ -1,7 +1,10 @@
+import { AxiosAdapter } from 'axios'
+
 export interface CreateClientParams {
   spaceUid: string
   token: string
   apiType?: 'cdn' | 'api'
+  adapter?: AxiosAdapter
   retryOnError?: boolean
   retryLimit?: number
 }
