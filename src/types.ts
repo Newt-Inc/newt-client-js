@@ -97,6 +97,7 @@ export interface Content {
   _sys: {
     createdAt: string
     updatedAt: string
+    customOrder: number
     raw: {
       createdAt: string
       updatedAt: string
@@ -104,6 +105,16 @@ export interface Content {
       publishedAt: string
     }
   }
+}
+
+export interface Media {
+  _id: string
+  src: string
+  fileType: string
+  fileName: string
+  fileSize: number
+  width: number | null
+  height: number | null
 }
 
 export type AppIcon = {
