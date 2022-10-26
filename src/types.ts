@@ -106,6 +106,16 @@ export interface Content {
   }
 }
 
+export interface Media {
+  _id: string
+  src: string
+  fileType: string
+  fileName: string
+  fileSize: number
+  width: number | null
+  height: number | null
+}
+
 export type AppIcon = {
   type: string
   value: string
