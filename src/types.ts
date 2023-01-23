@@ -12,7 +12,7 @@ export interface CreateClientParams {
 export interface Client {
   getContents: <T>(params: GetContentsParams) => Promise<Contents<T>>
   getContent: <T>(params: GetContentParams) => Promise<T>
-  getFirstContent: <T>(params: GetFirstContentParams) => Promise<T>
+  getFirstContent: <T>(params: GetFirstContentParams) => Promise<T | null>
   getApp: (params: GetAppParams) => Promise<AppMeta>
 }
 
