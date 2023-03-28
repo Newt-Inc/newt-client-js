@@ -56,7 +56,7 @@ client
 
 ## Documentation & References
 
-Please refer to the [REST API reference](https://developers.newt.so/) for the parameters and operators that can be used for query.
+Please refer to the [REST API reference](https://developers.newt.so/) and the [Query Parameters Tutorial (日本語)](https://www.newt.so/docs/tutorials/understanding-query-parameters) for the parameters and operators that can be used for query.
 
 ### Configuration
 
