@@ -107,14 +107,47 @@ export interface Content {
   }
 }
 
-export interface Media {
+export interface Image {
   _id: string
   src: string
-  fileType: string
   fileName: string
+  fileType: string
+  fileSize: number
+  width: number
+  height: number
+  title: string
+  description: string
+  altText: string
+  metadata: Record<string, string | number | boolean>
+}
+
+export interface File {
+  _id: string
+  src: string
+  fileName: string
+  fileType: string
   fileSize: number
   width: number | null
   height: number | null
+  title: string
+  description: string
+  altText: string
+  metadata: Record<string, string | number | boolean>
+}
+
+// deprecated
+export interface Media {
+  _id: string
+  src: string
+  fileName: string
+  fileType: string
+  fileSize: number
+  width: number | null
+  height: number | null
+  title: string
+  description: string
+  altText: string
+  metadata: Record<string, string | number | boolean>
 }
 
 export type AppIcon = {
