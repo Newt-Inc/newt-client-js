@@ -10,6 +10,8 @@ export {
   GetFirstContentQuery,
   Contents,
   Content,
+  Image,
+  File,
   Media,
   AppMeta,
   AppCover,
