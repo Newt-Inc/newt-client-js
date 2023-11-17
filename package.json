@@ -1,6 +1,6 @@
 {
   "name": "newt-client-js",
-  "version": "3.2.7",
+  "version": "3.2.8",
   "description": "JavaScript SDK for Newt's API",
   "main": "./dist/cjs/newtClient.js",
   "module": "./dist/esm/newtClient.js",
