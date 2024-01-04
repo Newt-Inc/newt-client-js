@@ -7,6 +7,7 @@ export interface CreateClientParams {
   adapter?: AxiosAdapter
   retryOnError?: boolean
   retryLimit?: number
+  fetchImpl?: typeof fetch
 }
 
 export interface Client {
