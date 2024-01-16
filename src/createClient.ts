@@ -19,6 +19,7 @@ export const createClient = ({
   adapter = undefined,
   retryOnError = true,
   retryLimit = 3,
+  fetchImpl = undefined,
 }: CreateClientParams) => {
   if (!spaceUid) throw new Error('spaceUid parameter is required.')
   if (!token) throw new Error('token parameter is required.')
@@ -31,9 +32,10 @@ export const createClient = ({
 
   const baseUrl = new URL(`https://${spaceUid}.${apiType}.newt.so`)
 
+  const headers = { Authorization: `Bearer ${token}` }
   const axiosInstance = axios.create({
     baseURL: baseUrl.toString(),
-    headers: { Authorization: `Bearer ${token}` },
+    headers,
     adapter,
   })
   if (retryOnError) {
@@ -62,11 +64,20 @@ export const createClient = ({
       url.search = encoded
     }
 
-    try {
-      const { data } = await axiosInstance.get(url.pathname + url.search)
+    if (fetchImpl) {
+      const response = await fetchImpl(url, { headers })
+      if (!response.ok) {
+        throw new Error('Response invalid.')
+      }
+      const data = await response.json()
       return data
-    } catch (err) {
-      return errorHandler(err)
+    } else {
+      try {
+        const { data } = await axiosInstance.get(url.pathname + url.search)
+        return data
+      } catch (err) {
+        return errorHandler(err)
+      }
     }
   }
 
@@ -89,11 +100,20 @@ export const createClient = ({
       url.search = encoded
     }
 
-    try {
-      const { data } = await axiosInstance.get(url.pathname + url.search)
+    if (fetchImpl) {
+      const response = await fetchImpl(url, { headers })
+      if (!response.ok) {
+        throw new Error('Response invalid.')
+      }
+      const data = await response.json()
       return data
-    } catch (err) {
-      return errorHandler(err)
+    } else {
+      try {
+        const { data } = await axiosInstance.get(url.pathname + url.search)
+        return data
+      } catch (err) {
+        return errorHandler(err)
+      }
     }
   }
 
@@ -115,11 +135,20 @@ export const createClient = ({
   const getApp = async ({ appUid }: GetAppParams): Promise<AppMeta> => {
     if (!appUid) throw new Error('appUid parameter is required.')
     const url = new URL(`/v1/space/apps/${appUid}`, baseUrl.toString())
-    try {
-      const { data } = await axiosInstance.get<AppMeta>(url.pathname)
+    if (fetchImpl) {
+      const response = await fetchImpl(url, { headers })
+      if (!response.ok) {
+        throw new Error('Response invalid.')
+      }
+      const data = await response.json()
       return data
-    } catch (err) {
-      return errorHandler(err)
+    } else {
+      try {
+        const { data } = await axiosInstance.get<AppMeta>(url.pathname)
+        return data
+      } catch (err) {
+        return errorHandler(err)
+      }
     }
   }
 
