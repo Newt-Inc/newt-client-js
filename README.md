@@ -76,7 +76,7 @@ The `createClient` method supports several options you may set to achieve the ex
 | `adapter` | `undefined` | Custom adapter to handle making the requests. Find further information in the axios request config documentation. <https://github.com/mzabriskie/axios#request-config> |
 | `retryOnError` | `true` | By default, this client will retry if the response status is 429 too many requests or 500 server error. To turn off this behavior, set this to `false`. |
 | `retryLimit` | `3` | The number of times to retry before failure. Please specify a value less than or equal to `10`. |
-| `fetch` | `undefined` | You can specify a custom fetch function for the HTTP request like `globalThis.fetch` or `node-fetch`.<br>**Note that if you use the fetch option, the adapter option will be ignored and no retry will be performed.** |
+| `fetch` | `undefined` | You can specify a custom fetch function for the HTTP request like `globalThis.fetch` or `node-fetch`.<br />**Note that if you use the fetch option, the adapter option will be ignored and no retry will be performed.** |
 
 You can choose to use axios or fetch for your request, whichever you prefer.
 If you do not specify the `fetch` option, the request will be made with axios, in which case the values specified for the options `adapter`, `retryOnError`, and `retryLimit` will be taken into account.
