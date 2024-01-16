@@ -7,7 +7,7 @@ export interface CreateClientParams {
   adapter?: AxiosAdapter
   retryOnError?: boolean
   retryLimit?: number
-  fetchImpl?: typeof fetch
+  fetch?: typeof fetch
 }
 
 export interface Client {
@@ -170,4 +170,20 @@ export interface AppMeta {
 
 export interface GetAppParams {
   appUid: string
+}
+
+export interface NewtError {
+  status: number
+  code: string
+  message: string
+}
+
+export interface ErrorRequest {
+  method?: string
+  headers?: Record<string, string>
+  url?: string
+}
+
+export interface ErrorResponse extends NewtError {
+  request?: ErrorRequest
 }

@@ -17,4 +17,7 @@ export {
   AppCover,
   AppIcon,
   GetAppParams,
+  NewtError,
+  ErrorRequest,
+  ErrorResponse,
 } from './types'
