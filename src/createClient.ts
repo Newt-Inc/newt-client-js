@@ -10,7 +10,7 @@ import {
   GetAppParams,
   AppMeta,
 } from './types'
-import { errorHandler } from './errorHandler'
+import { axiosErrorHandler, fetchErrorHandler } from './errorHandler'
 
 export const createClient = ({
   spaceUid,
@@ -65,18 +65,28 @@ export const createClient = ({
     }
 
     if (fetch) {
-      const response = await fetch(url.toString(), { headers })
-      if (!response.ok) {
-        throw new Error('Response invalid.')
+      const req = {
+        method: 'get',
+        headers,
+        url: url.toString(),
       }
-      const data = await response.json()
-      return data
+
+      try {
+        const res = await fetch(url.toString(), { headers })
+        const data = await res.json()
+        if (!res.ok) {
+          return fetchErrorHandler(data, req)
+        }
+        return data
+      } catch (err) {
+        return fetchErrorHandler(err, req)
+      }
     } else {
       try {
         const { data } = await axiosInstance.get(url.pathname + url.search)
         return data
       } catch (err) {
-        return errorHandler(err)
+        return axiosErrorHandler(err)
       }
     }
   }
@@ -101,18 +111,28 @@ export const createClient = ({
     }
 
     if (fetch) {
-      const response = await fetch(url.toString(), { headers })
-      if (!response.ok) {
-        throw new Error('Response invalid.')
+      const req = {
+        method: 'get',
+        headers,
+        url: url.toString(),
       }
-      const data = await response.json()
-      return data
+
+      try {
+        const res = await fetch(url.toString(), { headers })
+        const data = await res.json()
+        if (!res.ok) {
+          return fetchErrorHandler(data, req)
+        }
+        return data
+      } catch (err) {
+        return fetchErrorHandler(err, req)
+      }
     } else {
       try {
         const { data } = await axiosInstance.get(url.pathname + url.search)
         return data
       } catch (err) {
-        return errorHandler(err)
+        return axiosErrorHandler(err)
       }
     }
   }
@@ -136,18 +156,28 @@ export const createClient = ({
     if (!appUid) throw new Error('appUid parameter is required.')
     const url = new URL(`/v1/space/apps/${appUid}`, baseUrl.toString())
     if (fetch) {
-      const response = await fetch(url.toString(), { headers })
-      if (!response.ok) {
-        throw new Error('Response invalid.')
+      const req = {
+        method: 'get',
+        headers,
+        url: url.toString(),
       }
-      const data = await response.json()
-      return data
+
+      try {
+        const res = await fetch(url.toString(), { headers })
+        const data = await res.json()
+        if (!res.ok) {
+          return fetchErrorHandler(data, req)
+        }
+        return data
+      } catch (err) {
+        return fetchErrorHandler(err, req)
+      }
     } else {
       try {
         const { data } = await axiosInstance.get<AppMeta>(url.pathname)
         return data
       } catch (err) {
-        return errorHandler(err)
+        return axiosErrorHandler(err)
       }
     }
   }

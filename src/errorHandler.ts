@@ -1,6 +1,7 @@
-import axios, { AxiosRequestHeaders } from 'axios'
+import axios from 'axios'
+import type { ErrorRequest, ErrorResponse, NewtError } from './types'
 
-export const errorHandler = (errorResponse: unknown): never => {
+export const axiosErrorHandler = (errorResponse: unknown): never => {
   if (!axios.isAxiosError(errorResponse)) {
     throw errorResponse
   }
@@ -11,18 +12,9 @@ export const errorHandler = (errorResponse: unknown): never => {
   }
 
   const { data } = response
-  const errorData: {
-    status: number
-    statusText: string
-    message: string
-    request?: {
-      method?: string
-      headers?: AxiosRequestHeaders
-      url?: string
-    }
-  } = {
+  const errorData: ErrorResponse = {
     status: data.status,
-    statusText: data.code,
+    code: data.code,
     message: data.message,
   }
 
@@ -31,7 +23,6 @@ export const errorHandler = (errorResponse: unknown): never => {
       method: config.method,
       headers: config.headers,
     }
-
     if (config.url) {
       const url = new URL(config.url, config.baseURL)
       errorData.request.url = url.toString()
@@ -44,6 +35,49 @@ export const errorHandler = (errorResponse: unknown): never => {
     error.message = JSON.stringify(errorData, null, 2)
   } catch {
     error.message = data.message
+  }
+  throw error
+}
+
+const isNewtError = (value: unknown): value is NewtError => {
+  if (typeof value !== 'object' || value === null) {
+    return false
+  }
+  const email = value as Record<keyof NewtError, unknown>
+  if (typeof email.status !== 'number') {
+    return false
+  }
+  if (typeof email.code !== 'string') {
+    return false
+  }
+  if (typeof email.message !== 'string') {
+    return false
+  }
+  return true
+}
+
+export const fetchErrorHandler = (
+  errorResponse: unknown,
+  errorRequest: ErrorRequest
+): never => {
+  if (!isNewtError(errorResponse)) {
+    throw errorResponse
+  }
+
+  const { status, code, message } = errorResponse
+  const errorData: ErrorResponse = {
+    status,
+    code,
+    message,
+    request: errorRequest,
+  }
+
+  const error = new Error()
+  error.name = `${status} ${code}`
+  try {
+    error.message = JSON.stringify(errorData, null, 2)
+  } catch {
+    error.message = message
   }
   throw error
 }
