@@ -19,7 +19,7 @@ export const createClient = ({
   adapter = undefined,
   retryOnError = true,
   retryLimit = 3,
-  fetchImpl = undefined,
+  fetch = undefined,
 }: CreateClientParams) => {
   if (!spaceUid) throw new Error('spaceUid parameter is required.')
   if (!token) throw new Error('token parameter is required.')
@@ -64,8 +64,8 @@ export const createClient = ({
       url.search = encoded
     }
 
-    if (fetchImpl) {
-      const response = await fetchImpl(url, { headers })
+    if (fetch) {
+      const response = await fetch(url, { headers })
       if (!response.ok) {
         throw new Error('Response invalid.')
       }
@@ -100,8 +100,8 @@ export const createClient = ({
       url.search = encoded
     }
 
-    if (fetchImpl) {
-      const response = await fetchImpl(url, { headers })
+    if (fetch) {
+      const response = await fetch(url, { headers })
       if (!response.ok) {
         throw new Error('Response invalid.')
       }
@@ -135,8 +135,8 @@ export const createClient = ({
   const getApp = async ({ appUid }: GetAppParams): Promise<AppMeta> => {
     if (!appUid) throw new Error('appUid parameter is required.')
     const url = new URL(`/v1/space/apps/${appUid}`, baseUrl.toString())
-    if (fetchImpl) {
-      const response = await fetchImpl(url, { headers })
+    if (fetch) {
+      const response = await fetch(url, { headers })
       if (!response.ok) {
         throw new Error('Response invalid.')
       }
