@@ -56,7 +56,11 @@ client
 
 ## Documentation & References
 
-Please refer to the [REST API reference](https://developers.newt.so/) and the [Query Parameters Tutorial (日本語)](https://www.newt.so/docs/tutorials/understanding-query-parameters) for the parameters and operators that can be used for query.
+Please refer to the following documents.
+
+- [ガイド: SDK](https://www.newt.so/docs/js-sdk)
+- [チュートリアル: NewtのAPIで利用できるクエリパラメータを理解して、様々なクエリを実行する](https://www.newt.so/docs/tutorials/understanding-query-parameters)
+- [REST API reference](https://developers.newt.so/)
 
 ### Configuration
 
@@ -72,6 +76,7 @@ The `createClient` method supports several options you may set to achieve the ex
 | `adapter` | `undefined` | Custom adapter to handle making the requests. Find further information in the axios request config documentation. <https://github.com/mzabriskie/axios#request-config> |
 | `retryOnError` | `true` | By default, this client will retry if the response status is 429 too many requests or 500 server error. To turn off this behavior, set this to `false`. |
 | `retryLimit` | `3` | The number of times to retry before failure. Please specify a value less than or equal to `10`. |
+| `fetch` | `undefined` | You can specify a custom fetch function for the HTTP request like `globalThis.fetch` or `node-fetch`.<br>**Note that if you use the fetch option, the adapter option will be ignored and no retry will be performed.** |
 
 ### Get contents
 
@@ -175,6 +180,7 @@ By using the type Content, you can easily define the type.
  *   _sys: {
  *     createdAt: string;
  *     updatedAt: string;
+ *     customOrder: number;
  *     raw: {
  *       createdAt: string;
  *       updatedAt: string;
@@ -221,6 +227,7 @@ client.getContents<Post>({
  *   _sys: {
  *     createdAt: string;
  *     updatedAt: string;
+ *     customOrder: number;
  *     raw: {
  *       createdAt: string;
  *       updatedAt: string;
@@ -249,6 +256,7 @@ client
  *   _sys: {
  *     createdAt: string;
  *     updatedAt: string;
+ *     customOrder: number;
  *     raw: {
  *       createdAt: string;
  *       updatedAt: string;
