@@ -31,13 +31,13 @@ export const createClient = ({
     throw new Error('retryLimit should be a value less than or equal to 10.')
 
   const baseUrl = new URL(`https://${spaceUid}.${apiType}.newt.so`)
-
   const headers = { Authorization: `Bearer ${token}` }
   const axiosInstance = axios.create({
     baseURL: baseUrl.toString(),
     headers,
     adapter,
   })
+
   if (retryOnError) {
     axiosRetry(axiosInstance, {
       retries: retryLimit,
@@ -65,7 +65,7 @@ export const createClient = ({
     }
 
     if (fetch) {
-      const response = await fetch(url, { headers })
+      const response = await fetch(url.toString(), { headers })
       if (!response.ok) {
         throw new Error('Response invalid.')
       }
@@ -101,7 +101,7 @@ export const createClient = ({
     }
 
     if (fetch) {
-      const response = await fetch(url, { headers })
+      const response = await fetch(url.toString(), { headers })
       if (!response.ok) {
         throw new Error('Response invalid.')
       }
@@ -136,7 +136,7 @@ export const createClient = ({
     if (!appUid) throw new Error('appUid parameter is required.')
     const url = new URL(`/v1/space/apps/${appUid}`, baseUrl.toString())
     if (fetch) {
-      const response = await fetch(url, { headers })
+      const response = await fetch(url.toString(), { headers })
       if (!response.ok) {
         throw new Error('Response invalid.')
       }
