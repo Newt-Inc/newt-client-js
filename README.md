@@ -78,6 +78,10 @@ The `createClient` method supports several options you may set to achieve the ex
 | `retryLimit` | `3` | The number of times to retry before failure. Please specify a value less than or equal to `10`. |
 | `fetch` | `undefined` | You can specify a custom fetch function for the HTTP request like `globalThis.fetch` or `node-fetch`.<br>**Note that if you use the fetch option, the adapter option will be ignored and no retry will be performed.** |
 
+You can choose to use axios or fetch for your request, whichever you prefer.
+If you do not specify the `fetch` option, the request will be made with axios, in which case the values specified for the options `adapter`, `retryOnError`, and `retryLimit` will be taken into account.
+If you set a value for the `fetch` option, the request will be made using fetch instead of axios. Note that in that case, the `adapter` option will not be taken into account and retries will not be performed.
+
 ### Get contents
 
 ```js
