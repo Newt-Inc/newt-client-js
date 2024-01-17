@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "target": "esnext",
     "module": "esnext",
-    "declaration": true,
-    "moduleResolution": "node",
-    "rootDir": "./src",
-    "outDir": "./dist",
-    "declarationDir": "./dist/types",
+    "target": "esnext",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationDir": "./dist/types"
   },
   "include": ["./src/**/*"]
 }
