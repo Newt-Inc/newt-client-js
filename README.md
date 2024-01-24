@@ -59,6 +59,7 @@ client
 Please refer to the following documents.
 
 - [ガイド: SDK](https://www.newt.so/docs/js-sdk)
+- [ガイド: 利用可能なクエリ](https://www.newt.so/docs/cdn-api-newt-api-queries)
 - [チュートリアル: NewtのAPIで利用できるクエリパラメータを理解して、様々なクエリを実行する](https://www.newt.so/docs/tutorials/understanding-query-parameters)
 - [REST API reference](https://developers.newt.so/)
 
