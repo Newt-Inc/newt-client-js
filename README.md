@@ -1,3 +1,13 @@
+# End of Life Notice
+
+**The Newt headless CMS will be retired on 2026-11-24.**
+
+2026年11月24日（火）をもちまして、Newt株式会社が提供しているヘッドレスCMS「Newt」のサービス提供を終了させていただくこととなりました。
+
+サービス終了後は、管理画面・APIともにご利用いただくことができなくなります。
+
+これまでヘッドレスCMS「Newt」をご支援・ご愛顧いただき、誠にありがとうございました。
+
 # JavaScript SDK for Newt's API
 
 JavaScript client for Newt. Works in Node.js and modern browsers.
