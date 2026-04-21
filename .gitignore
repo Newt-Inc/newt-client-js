@@ -1,5 +1,6 @@
 *.log
 .DS_Store
+.claude
 node_modules
 dist
 coverage
