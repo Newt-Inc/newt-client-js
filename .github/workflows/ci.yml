@@ -11,7 +11,7 @@ jobs:
         with:
           node-version: '22.13.1'
           cache: 'yarn'
-      - run: yarn --frozen-lockfile
+      - run: yarn install --immutable
       - run: yarn lint:eslint
       - run: yarn lint:prettier
       - run: yarn build
